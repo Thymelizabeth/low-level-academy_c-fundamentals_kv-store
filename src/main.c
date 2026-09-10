@@ -17,6 +17,10 @@ int main(void) {
       printf("[%lu] %s: %s\n", i, entry.key, entry.value);
     }
   }
+  char *haha = kv_get(table, "hehe");
+  char *none = kv_get(table, "none");
+  assert(haha != NULL);
+  assert(none == NULL);
   printf("%lu\n", table->count);
 
   kv_free(table);

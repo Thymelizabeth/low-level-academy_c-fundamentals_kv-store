@@ -113,6 +113,16 @@ void kv_free(kv_t *db) {
   if (db == NULL)
     return;
 
+  for (size_t i = 0; i < db->capacity - 1; i++) {
+    kv_entry_t *entry = &db->entries[i];
+    if (entry->key != NULL && entry->key != TOMBSTONE) {
+      free(entry->key);
+      entry->key = NULL;
+      free(entry->value);
+      entry->value = NULL;
+      db->count--;
+    }
+  }
   free(db->entries);
   free(db);
 }
